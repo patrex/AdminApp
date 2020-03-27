@@ -1,0 +1,59 @@
+﻿@page
+@model AdminApp.CreateEventModel
+@{
+    ViewData["Title"] = "CreateEvent";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Enter details for the event</h2>
+
+<br />
+
+<div class="container border">
+    <form method="post">
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="Event.Name"></label>
+            </div>
+            <div class="col-6 mb-2">
+                <input asp-for="Event.Name" class="form-control" />
+            </div>
+
+            <div class="col-4">
+                <label asp-for="Event.Venue"></label>
+            </div>
+            <div class="col-6 mb-2 ">
+                <input asp-for="Event.Venue" class="form-control" />
+            </div>
+
+            <div class="col-4">
+                <label asp-for="Event.EventDateTime">Event Date</label>
+            </div>
+            <div class="col-6 mb-2">
+                <input asp-for="Event.EventDateTime" class="form-control" type="date" />
+            </div>
+
+            <div class="col-4">
+                <label asp-for="Event.Id">Event ID</label>
+            </div>
+            <div class="col-6 mb-2">
+                <input asp-for="Event.Id" class="form-control"/>
+            </div>
+
+            <div class="col-4">
+                <label asp-for="Event.HostId">Event Host ID</label>
+            </div>
+            <div class="col-6 mb-2">
+                <input asp-for="Event.HostId" class="form-control" />
+            </div>
+
+            <div class="row container mx-auto w-50">
+                <input class="btn btn-primary text-white mr-2" type="submit" />
+                <a asp-page="ViewEvents" class="btn btn-danger text-white">Discard</a>
+            </div>
+
+        </div>
+    </form>
+</div>
+

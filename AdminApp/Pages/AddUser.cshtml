@@ -1,0 +1,55 @@
+﻿@page
+@model AdminApp.AddUserModel
+@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h3>Add a new user</h3>
+<div class="container row p-0 m-0">
+    <form>
+        <div class="form-group">
+            <fieldset class="form-group">
+                <label for="fname" class="form-control-label">Firstname</label>
+                <input type="text" name="first_name" class="form-control" id="fname" />
+
+                <label for="lname" class="form-control-label">Lastname</label>
+                <input type="text" name="last_name" class="form-control" id="lname" />
+
+                <label for="phone_no" class="form-control-label">Phone Number</label>
+                <input type="number" name="phone_no" class="form-control" id="phone_no" />
+            </fieldset>
+        </div>
+
+        <hr id="sep" />
+
+        <div class="form-group">
+            <label for="office_grp">Select Office Location</label>
+            <select id="office_grp" class="form-control">
+                <option class="form-text">choose office location</option>
+                <option value="mkd">Makurdi</option>
+                <option value="gbk">Gboko</option>
+                <option value="ukm">Ukum</option>
+                <option value="gww">Gwer-West</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="dept_no">Select department</label>
+            <select id="dept_no" class="form-control">
+                <option>choose department</option>
+                <option value="admin">Admin</option>
+                <option value="finance">Finance</option>
+                <option value="clinicals">Clinicals</option>
+                <option value="community">Community</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary text-white" value="Create User" />
+            <input type="button" class="btn btn-danger text-white" value="Discard"/>
+        </div>
+
+    </form>
+</div>
+
