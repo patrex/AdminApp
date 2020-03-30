@@ -19,10 +19,15 @@ namespace AdminApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AdminApp.Models.AEvent", b =>
+            modelBuilder.Entity("AdminApp.Models.APINEvent", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("EventDateTime")
                         .HasColumnType("datetime2");

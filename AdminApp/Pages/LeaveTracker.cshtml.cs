@@ -17,7 +17,7 @@ namespace AdminApp
             _db = db;
         }
 
-        public AEvent MyProperty { get; set; }
+        public APINEvent MyProperty { get; set; }
         public void OnGet()
         {
 

@@ -18,11 +18,30 @@ namespace AdminApp
         }
 
         [BindProperty]
-        public AEvent Event { get; set; }
+        public APINEvent Event { get; set; }
 
-        public async Task OnGet(string EventId)
+        public async Task OnGet(int id)
         {
-            Event = await _db.Events.FindAsync(EventId);
+            Event = await _db.Events.FindAsync(id);
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                var someEvent = await _db.Events.FindAsync(Event.Id);
+
+                someEvent.Name = Event.Name;
+                someEvent.Venue = Event.Venue;
+                someEvent.EventDateTime = Event.EventDateTime;
+                someEvent.HostId = Event.HostId;
+
+                await _db.SaveChangesAsync();
+                return RedirectToPage("ViewEvents");
+            }
+
+            return RedirectToPage();
+
         }
     }
 }

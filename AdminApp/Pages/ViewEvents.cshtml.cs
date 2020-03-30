@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AdminApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +16,25 @@ namespace AdminApp
             _db = db;
         }
 
-        public IEnumerable<AEvent> Events { get; set; }
+        public IEnumerable<APINEvent> Events { get; set; }
         public async Task OnGet()
         {
             Events = await _db.Events.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var someEvent = _db.Events.FindAsync(id);
+
+            if (someEvent != null)
+            {
+                _db.Events.Remove(someEvent);
+                await _db.SaveChangesAsync();
+
+                return RedirectToPage("ViewEvents");
+            }
+
+            return NotFound();
         }
     }
 }

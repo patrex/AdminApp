@@ -53,7 +53,7 @@
 
                         <td>
                             <a asp-page="EditEvent" class="btn btn-success text-white" asp-route-id="@someEvent.Id">Edit</a>
-                            <button class="btn btn-danger text-white">Delete</button>
+                            <button onclick="return confirm('Do you want to permanently remove this event log?')" asp-page-handler="Delete" asp-route-id="@someEvent.Id" class="btn btn-danger text-white">Delete</button>
                         </td>
                     </tr>
                }

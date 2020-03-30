@@ -18,7 +18,7 @@ namespace AdminApp
         }
 
         [BindProperty]
-        public AEvent Event { get; set; }
+        public APINEvent Event { get; set; }
 
         public void OnGet()
         {
@@ -29,7 +29,6 @@ namespace AdminApp
         {
             if (ModelState.IsValid)
             {
-                //Console.WriteLine(Event.EventDateTime);
                 await _db.Events.AddAsync(Event);
                 await _db.SaveChangesAsync();
 

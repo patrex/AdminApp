@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200315205936_ResetEventDateTimeAsRequiredField")]
-    partial class ResetEventDateTimeAsRequiredField
+    [Migration("20200329161236_Reset")]
+    partial class Reset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,10 +21,15 @@ namespace AdminApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AdminApp.Models.AEvent", b =>
+            modelBuilder.Entity("AdminApp.Models.APINEvent", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("EventDateTime")
                         .HasColumnType("datetime2");
@@ -44,6 +49,30 @@ namespace AdminApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("AdminApp.Models.StaffList", b =>
+                {
+                    b.Property<int>("StaffNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StaffNo");
+
+                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("AdminApp.Models.User", b =>

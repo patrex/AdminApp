@@ -11,6 +11,7 @@
 
 <div class="container border">
     <form method="post">
+        <input type="hidden" asp-for="Event.Id" />
         <div class="form-group row p-2">
             <div class="col-4">
                 <label asp-for="Event.Name"></label>
@@ -30,14 +31,14 @@
                 <label asp-for="Event.EventDateTime">Event Date</label>
             </div>
             <div class="col-6 mb-2">
-                <input asp-for="Event.EventDateTime" class="form-control" type="date" />
+                <input asp-for="Event.EventDateTime" class="form-control" type="datetime-local" />
             </div>
 
             <div class="col-4">
                 <label asp-for="Event.Id">Event ID</label>
             </div>
             <div class="col-6 mb-2">
-                <input asp-for="Event.Id" class="form-control" />
+                <input asp-for="Event.Id" class="form-control" readonly />
             </div>
 
             <div class="col-4">

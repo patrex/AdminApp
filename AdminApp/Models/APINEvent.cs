@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AdminApp.Models
 {
-    public class AEvent
+    public class APINEvent
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -22,5 +22,7 @@ namespace AdminApp.Models
 
         [Required]
         public DateTime EventDateTime { get; set; }
+
+        public bool Approved { get; set; }
     }
 }
