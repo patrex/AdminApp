@@ -40,7 +40,7 @@
                @foreach(var someEvent in Model.Events){
                     <tr>
                         <td>
-                            <a href="#">@Html.DisplayFor(m => someEvent.Name)</a> 
+                            <a asp-page="AddParticipant" asp-route-id="@someEvent.Id">@Html.DisplayFor(m => someEvent.Name)</a> 
                         </td>
 
                         <td>
