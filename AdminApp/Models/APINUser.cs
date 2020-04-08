@@ -6,19 +6,12 @@ using System.Threading.Tasks;
 
 namespace AdminApp.Models
 {
-    public class StaffList
+    public class APINUser
     {
         [Key]
-        public int StaffNo { get; set; }
+        public int Id { get; set; }
 
-        [Required]
         public string Firstname { get; set; }
-
-        [Required]
         public string Lastname { get; set; }
-
-        [Required]
-        public string StaffEmail { get; set; }
-
     }
 }

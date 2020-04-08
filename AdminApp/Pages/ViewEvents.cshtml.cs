@@ -28,7 +28,7 @@ namespace AdminApp
 
             if (someEvent != null)
             {
-                _db.Events.Remove(someEvent);
+                //_db.Events.Remove(someEvent);
                 await _db.SaveChangesAsync();
 
                 return RedirectToPage("ViewEvents");

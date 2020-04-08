@@ -6,7 +6,7 @@ using AdminApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AdminApp
+namespace AdminApp.Pages
 {
     public class AddUserModel : PageModel
     {
@@ -16,9 +16,28 @@ namespace AdminApp
         {
             _db = db;
         }
+
+        [BindProperty]
+        public APINUser SomeUser { get; set; }
+
         public void OnGet()
         {
 
+        }
+
+        public async Task <IActionResult> OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                await _db.Users.AddAsync(SomeUser);
+                await _db.SaveChangesAsync();
+
+                return RedirectToPage("Index");
+            }
+            else
+            {
+                return Page();
+            }
         }
     }
 }
