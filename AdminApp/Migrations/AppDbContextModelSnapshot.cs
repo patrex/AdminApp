@@ -49,34 +49,12 @@ namespace AdminApp.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("AdminApp.Models.StaffList", b =>
+            modelBuilder.Entity("AdminApp.Models.User", b =>
                 {
-                    b.Property<int>("StaffNo")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Firstname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StaffEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StaffNo");
-
-                    b.ToTable("Staff");
-                });
-
-            modelBuilder.Entity("AdminApp.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateRegd")
                         .HasColumnType("datetime2");

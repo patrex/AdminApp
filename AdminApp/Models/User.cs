@@ -17,7 +17,7 @@ namespace AdminApp.Models
         private string FullName => $"{FirstName} {LastName}";
 
         [Key]
-        public string Id { get; set; }
+        public string UserEmail { get; set; }
 
         [Required]
         public string FirstName { get; set; }

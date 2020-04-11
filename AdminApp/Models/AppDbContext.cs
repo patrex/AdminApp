@@ -15,6 +15,6 @@ namespace AdminApp.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<APINEvent> Events { get; set; }
-        public DbSet<StaffList> Staff { get; set; }
+        
     }
 }

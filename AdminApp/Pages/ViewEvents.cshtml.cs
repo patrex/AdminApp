@@ -22,13 +22,13 @@ namespace AdminApp
             Events = await _db.Events.ToListAsync();
         }
 
-        public async Task<IActionResult> OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDelete(int? id)
         {
             var someEvent = _db.Events.FindAsync(id);
 
             if (someEvent != null)
             {
-                _db.Events.Remove(someEvent);
+                //_db.Events.Remove(someEvent);
                 await _db.SaveChangesAsync();
 
                 return RedirectToPage("ViewEvents");

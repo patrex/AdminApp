@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace AdminApp.Models
 {
-    public class StaffList
+    public class StoreItems
     {
         [Key]
-        public int StaffNo { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string Firstname { get; set; }
+        public string ItemName { get; set; }
 
         [Required]
-        public string Lastname { get; set; }
+        public int QuantityAdded { get; set; }
 
-        [Required]
-        public string StaffEmail { get; set; }
-
+        public DateTime DateAdded => DateTime.Now;
     }
 }
