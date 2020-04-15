@@ -15,32 +15,34 @@
     </div>
 
     <div class="col-12 border p-3 mt-3">
-
-        @if (Model.Users.Count() > 0)
-        {
         <form method="post">
 
-            <table class="table table-striped table-success border">
+            @if (Model.Users.Count() > 0)
+            {
 
-                @foreach (var someUser in Model.Users)
-                {
-                    <tr>
-                        <td>
-                            <input type="checkbox" asp-route-id="@someUser.Id"> @Html.DisplayFor(m => someUser.Fullname)
-                        </td>
-                    </tr>
-                }
 
-            </table>
+                <table class="table table-striped table-success border">
 
-            <button type="submit" class="btn btn-success text-white">Add user(s)</button>
-            <a asp-page="Index" class="btn btn-danger text-white">Discard</a>
+                    @foreach (var someUser in Model.Users)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" asp-route-id="@someUser.Id"> @Html.DisplayFor(m => someUser.Fullname)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+                <button type="submit" class="btn btn-success text-white">Add user(s)</button>
+                <a asp-page="Index" class="btn btn-danger text-white">Discard</a>
+
+            }
+            else
+            {
+                <p>There's no participant yet</p>
+            }
         </form>
-        }
-        else
-        {
-            <p>There's no participant yet</p>
-        }
-    </div>
+        </div>
 </div>
 
