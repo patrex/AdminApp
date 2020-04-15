@@ -5,27 +5,29 @@ using System.Threading.Tasks;
 using AdminApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminApp.Pages
 {
-    public class RequestItemModel : PageModel
+    public class UserDashboardModel : PageModel
     {
         private readonly AppDbContext _db;
 
-        public RequestItemModel(AppDbContext db)
+        public UserDashboardModel(AppDbContext db)
         {
             _db = db;
         }
 
         [BindProperty]
-        public APINUser SomeUser { get; set; }
+        public APINUser CurrentUser { get; set; }
 
         [BindProperty]
         public IEnumerable<StoreItems> Items { get; set; }
 
-        public void OnGet()
+        public async Task OnGet(string email)
         {
-
+            CurrentUser = await _db.Users.FindAsync(email);
+            Items = await _db.StoreItems.ToListAsync();
         }
     }
 }

@@ -40,10 +40,10 @@ namespace AdminApp.Pages
             if (ModelState.IsValid)
             {
                 var someEvent = await _db.Events.FindAsync(SomeEvent.Id);
-                var someUser = await _db.Users.FindAsync(SomeUser.Id);
+                var someUser = await _db.Users.FindAsync(SomeUser.eMail);
 
                 CurrentEvent.EventID = SomeEvent.Id;
-                CurrentEvent.UserID = SomeUser.Id;
+                CurrentEvent.UserID = SomeUser.eMail;
 
                 await _db.ConfirmedEvents.AddAsync(CurrentEvent);
                 await _db.SaveChangesAsync();

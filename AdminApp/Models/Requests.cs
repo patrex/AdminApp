@@ -14,7 +14,7 @@ namespace AdminApp.Models
         [Required]
         public int QuantityRequested { get; set; }
 
-        public DateTime DateRequeste => DateTime.Now;
+        public DateTime DateRequested => DateTime.Now;
 
         public APINUser UserRequesting { get; set; }
 

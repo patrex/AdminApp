@@ -24,7 +24,5 @@ namespace AdminApp.Models
         public DbSet<Requests> Requests { get; set; }
 
         public DbSet<StoreItems> StoreItems { get; set; }
-
-
     }
 }

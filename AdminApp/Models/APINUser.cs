@@ -9,10 +9,15 @@ namespace AdminApp.Models
     public class APINUser
     {
         [Key]
-        public int Id { get; set; }
+        public string eMail { get; set; }
 
+        [Required]
+        public string Pswd { get; set; }
+
+        [Required]
         public string Firstname { get; set; }
 
+        [Required]
         public string Lastname { get; set; }
 
         public bool IsAdmin { get; set; }
