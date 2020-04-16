@@ -24,10 +24,13 @@ namespace AdminApp.Pages
         [BindProperty]
         public IEnumerable<StoreItems> Items { get; set; }
 
-        public async Task OnGet(string email)
+        public async Task OnGet(string handler)
         {
-            CurrentUser = await _db.Users.FindAsync(email);
+            CurrentUser = await _db.Users.FindAsync(handler);
+
             Items = await _db.StoreItems.ToListAsync();
+
+            var name = CurrentUser.Firstname;
         }
     }
 }
