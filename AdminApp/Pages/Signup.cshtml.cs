@@ -8,18 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AdminApp.Pages
 {
-    public class AddItemModel : PageModel
+    public class SignupModel : PageModel
     {
         private readonly AppDbContext _db;
 
-        public AddItemModel(AppDbContext db)
+        public SignupModel(AppDbContext db)
         {
             _db = db;
         }
 
         [BindProperty]
-        public StoreItems Item { get; set; }
-
+        public APINUser SomeUser { get; set; }
 
         public void OnGet()
         {
@@ -30,16 +29,15 @@ namespace AdminApp.Pages
         {
             if (ModelState.IsValid)
             {
-                await _db.StoreItems.AddAsync(Item);
+                await _db.Users.AddAsync(SomeUser);
                 await _db.SaveChangesAsync();
 
-                return RedirectToPage("AdminDashbord");
+                return RedirectToPage("Index");
             }
             else
             {
                 return Page();
             }
-
         }
     }
 }

@@ -22,6 +22,14 @@ namespace AdminApp.Models
 
         public bool IsAdmin { get; set; }
 
+        [Required]
+        public string Department { get; set; }
+
         public string Fullname => $"{Firstname} {Lastname}";
+
+        public string ToString 
+        { 
+            get { return Fullname; }
+        }
     }
 }

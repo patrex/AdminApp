@@ -7,7 +7,15 @@
 
 <br />
 
-@*<h2 class="text-info">Hello, @Model.CurrentUser.Firstname</h2>*@
+<div class="container row">
 
-<a asp-page="ReqItem" class="btn btn-primary">Make a Request</a>
+    <div class="col-9">
+        <h2 class="text-info">Hello, @Model.CurrentUser.ToString</h2>
+    </div>
+
+    <div class="col-3">
+        <a asp-page="ReqItem" asp-route-id="@Model.CurrentUser.eMail" class="btn btn-info form-control text-white">Make Request</a>
+    </div>
+
+</div>
 

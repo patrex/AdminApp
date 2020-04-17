@@ -26,11 +26,13 @@ namespace AdminApp.Pages
 
         public async Task OnGet(string handler)
         {
-            CurrentUser = await _db.Users.FindAsync(handler);
+            
+            if(handler != null)
+            {
+                CurrentUser = await _db.Users.FindAsync(handler);
+            }
 
             Items = await _db.StoreItems.ToListAsync();
-
-            var name = CurrentUser.Firstname;
         }
     }
 }

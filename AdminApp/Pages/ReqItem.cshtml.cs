@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AdminApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdminApp.Pages
@@ -19,30 +20,53 @@ namespace AdminApp.Pages
         }
 
         [BindProperty]
-        public IEnumerable<StoreItems> StoreItems { get; set; }
+        public string Item { get; set; }
+
+        [BindProperty]
+        public IEnumerable<StoreItems> Items { get; set; }
+
+        public List<SelectListItem> Options { get; set; }
 
         [BindProperty]
         public APINUser Requester { get; set; }
 
         [BindProperty]
-        public Requests Request { get; set; }
+        public Requests UserRequest { get; set; }
 
-        public async Task OnGet()
+        public async Task OnGet(string id)
         {
-            StoreItems = await _db.StoreItems.ToListAsync();
+            Requester = await _db.Users.FindAsync(id);   //fetch the current user
+
+            if (Requester != null) 
+            {
+                Items = await _db.StoreItems.ToListAsync();
+
+                //populate the select list
+                Options = Items.Select(a => 
+                                        new SelectListItem { 
+                                            Value = a.ItemName,
+                                            Text = a.ItemName
+                                        }).ToList();
+            } 
+            else
+            {
+                RedirectToPage("Error");    //Current user not found
+            }
         }
 
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                await _db.Requests.AddAsync(Request);
+                await _db.Requests.AddAsync(UserRequest);
 
-                return RedirectToPage("Index");
+                var y = 8;
+
+                return RedirectToPage("UserDashboard");
             }
             else
             {
-                return Page();
+                return RedirectToPage();
             }
         }
         

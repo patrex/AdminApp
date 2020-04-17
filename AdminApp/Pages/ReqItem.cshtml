@@ -8,13 +8,42 @@
 <br />
 
 <div class="container row">
-
     <div class="col-9">
-        <h2 class="text-info"></h2>
+        <h2 class="text-info">Select Items</h2>
     </div>
 
     <div class="col-12 border p-3 mt-3">
         <form method="post">
+            <div class="form-group">
+                <select required class="form-control" asp-for="UserRequest.Item" asp-items="Model.Options">
+                    <option value="" disabled selected>Select an Item</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserRequest.QuantityRequested">Enter Quantity</label>
+                <input asp-for="UserRequest.QuantityRequested" required class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserRequest.DateRequested">Date Requested</label>
+                <input asp-for="UserRequest.DateRequested" class="form-control" type="date" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserRequest.Purpose">Purpose</label>
+                <textarea asp-for="UserRequest.Purpose" required class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserRequest.UserRequesting">User requesting</label>
+                <input type="text" asp-for="UserRequest.UserRequesting" class="form-control" readonly value="@Model.Requester.ToString; " />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary text-white" type="submit">Submit Request</button>
+                <a asp-page="UserDashboard" class="btn btn-danger text-white">Discard</a>
+            </div>
         </form>
     </div>
 </div>

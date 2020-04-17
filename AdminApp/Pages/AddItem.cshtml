@@ -17,24 +17,24 @@
         <form method="post">
             <div class="form-group row p-2">
                 <div class="col-4">
-                    <label asp-for="Item.ItemName"></label>
+                    <label asp-for="Item.ItemName">Item name</label>
                 </div>
                 <div class="col-6 mb-2">
                     <input asp-for="Item.ItemName" class="form-control" />
                 </div>
 
                 <div class="col-4">
-                    <label asp-for="Item.QuantityAdded"></label>
+                    <label asp-for="Item.QuantityAdded">Quantity</label>
                 </div>
                 <div class="col-6 mb-2 ">
                     <input asp-for="Item.QuantityAdded" class="form-control" type="number" />
                 </div>
 
                 <div class="col-4">
-                    <label asp-for="Item.DateAdded">Email</label>
+                    <label asp-for="Item.DateAdded">Date</label>
                 </div>
                 <div class="col-6 mb-2 ">
-                    <input asp-for="Item.DateAdded" class="form-control" type="datetime" />
+                    <input asp-for="Item.DateAdded" class="form-control" type="date" />
                 </div>
 
                 <div class="row container mx-auto w-50">

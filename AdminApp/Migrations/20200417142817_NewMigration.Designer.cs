@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200415092346_AddMoreModels")]
-    partial class AddMoreModels
+    [Migration("20200417142817_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,21 +53,29 @@ namespace AdminApp.Migrations
 
             modelBuilder.Entity("AdminApp.Models.APINUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("eMail")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Pswd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("eMail");
 
                     b.ToTable("Users");
                 });
@@ -79,8 +87,12 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IssuerId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("IssuedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IssuereMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("QuantityIssued")
                         .HasColumnType("int");
@@ -91,7 +103,7 @@ namespace AdminApp.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("IssuerId");
+                    b.HasIndex("IssuereMail");
 
                     b.ToTable("Issues");
                 });
@@ -103,8 +115,9 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventID");
 
@@ -118,20 +131,29 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ItemId")
+                    b.Property<DateTime>("DateRequested")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuantityRequested")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserRequestingId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserRequesting")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RequestId");
 
                     b.HasIndex("ItemId");
-
-                    b.HasIndex("UserRequestingId");
 
                     b.ToTable("Requests");
                 });
@@ -159,7 +181,7 @@ namespace AdminApp.Migrations
                 {
                     b.HasOne("AdminApp.Models.APINUser", "Issuer")
                         .WithMany()
-                        .HasForeignKey("IssuerId")
+                        .HasForeignKey("IssuereMail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -168,11 +190,9 @@ namespace AdminApp.Migrations
                 {
                     b.HasOne("AdminApp.Models.StoreItems", "Item")
                         .WithMany()
-                        .HasForeignKey("ItemId");
-
-                    b.HasOne("AdminApp.Models.APINUser", "UserRequesting")
-                        .WithMany()
-                        .HasForeignKey("UserRequestingId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
