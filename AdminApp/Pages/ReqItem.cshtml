@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "ReqItem";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+
+   
 }
 
 <br />
@@ -26,23 +28,13 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="UserRequest.DateRequested">Date Requested</label>
-                <input asp-for="UserRequest.DateRequested" class="form-control" type="date" />
-            </div>
-
-            <div class="form-group">
                 <label asp-for="UserRequest.Purpose">Purpose</label>
                 <textarea asp-for="UserRequest.Purpose" required class="form-control"></textarea>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserRequest.UserRequesting">User requesting</label>
-                <input type="text" asp-for="UserRequest.UserRequesting" class="form-control" readonly value="@Model.Requester.ToString; " />
-            </div>
-
-            <div class="form-group">
                 <button class="btn btn-primary text-white" type="submit">Submit Request</button>
-                <a asp-page="UserDashboard" class="btn btn-danger text-white">Discard</a>
+                <a asp-page="UserDashboard" class="btn btn-danger text-white" asp-route-id="">Discard</a>
             </div>
         </form>
     </div>

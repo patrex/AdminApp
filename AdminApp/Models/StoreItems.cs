@@ -17,7 +17,7 @@ namespace AdminApp.Models
         [Required]
         public int QuantityAdded { get; set; }
 
-        public DateTime DateAdded => DateTime.Now;
+        public DateTime DateAdded { get; set; }
 
         public string ToString { get { return $"{ItemName}"; } }
     }

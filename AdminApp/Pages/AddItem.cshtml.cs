@@ -30,6 +30,7 @@ namespace AdminApp.Pages
         {
             if (ModelState.IsValid)
             {
+                Item.DateAdded = DateTime.Now;
                 await _db.StoreItems.AddAsync(Item);
                 await _db.SaveChangesAsync();
 

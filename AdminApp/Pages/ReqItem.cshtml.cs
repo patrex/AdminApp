@@ -54,20 +54,20 @@ namespace AdminApp.Pages
             }
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(string id)
         {
-            if (ModelState.IsValid)
-            {
-                await _db.Requests.AddAsync(UserRequest);
+            Requester = await _db.Users.FindAsync(id);
+            
 
-                var y = 8;
+            UserRequest.UserRequesting = Requester.ToString;
+            UserRequest.DateRequested = DateTime.Now;
+            UserRequest.RequesterEmail = Requester.eMail;
 
-                return RedirectToPage("UserDashboard");
-            }
-            else
-            {
-                return RedirectToPage();
-            }
+            await _db.Requests.AddAsync(UserRequest);
+            await _db.SaveChangesAsync();
+
+            return RedirectToPage("Index");
+         
         }
         
     }
