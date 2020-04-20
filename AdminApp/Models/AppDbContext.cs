@@ -13,12 +13,15 @@ namespace AdminApp.Models
 
         }
         public DbSet<APINEvent> Events { get; set; }
+
         public DbSet<APINUser> Users { get; set; }
 
         public DbSet<OnGoingEvent> ConfirmedEvents { get; set; }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<APINEvent> Events { get; set; }
-        public DbSet<StaffList> Staff { get; set; }
+        public DbSet<StoreItems> ItemsInStore { get; set; }
+
+        public DbSet<Requests> Requests { get; set; }
+
+        public DbSet<ItemIssues> IssuedItems { get; set; }
     }
 }
