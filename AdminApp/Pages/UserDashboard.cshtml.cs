@@ -24,13 +24,19 @@ namespace AdminApp.Pages
         [BindProperty]
         public IEnumerable<StoreItems> Items { get; set; }
 
-        public async Task OnGet(string handler)
+        public async Task OnGet(string handler, string id)
         {
             
             if(handler != null)
             {
                 CurrentUser = await _db.Users.FindAsync(handler);
             }
+            else
+            {
+                handler = id;
+                CurrentUser = await _db.Users.FindAsync(handler);
+            }
+            // else { RedirectToPage("Error"); }
 
             Items = await _db.StoreItems.ToListAsync();
         }

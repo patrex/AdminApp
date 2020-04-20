@@ -41,7 +41,10 @@ namespace AdminApp.Pages
             if (SomeUser != null)
             {
                 if (SomeUser.Pswd == password)
-                    return RedirectToPage("UserDashboard", email);
+                {
+                    if (SomeUser.IsAdmin) return RedirectToPage("AdminDashboard", email);     //admin login
+                    return RedirectToPage("UserDashboard", email); //normal login
+                }   
 
                 return RedirectToPage("Error");
             }

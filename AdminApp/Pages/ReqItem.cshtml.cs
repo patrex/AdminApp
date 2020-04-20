@@ -66,7 +66,7 @@ namespace AdminApp.Pages
             await _db.Requests.AddAsync(UserRequest);
             await _db.SaveChangesAsync();
 
-            return RedirectToPage("Index");
+            return RedirectToPage("UserDashboard", Requester.eMail);
          
         }
         

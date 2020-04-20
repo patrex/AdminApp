@@ -34,7 +34,7 @@ namespace AdminApp.Pages
                 await _db.StoreItems.AddAsync(Item);
                 await _db.SaveChangesAsync();
 
-                return RedirectToPage("AdminDashbord");
+                return RedirectToPage("AdminDashboard");
             }
             else
             {
