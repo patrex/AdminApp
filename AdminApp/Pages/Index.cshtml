@@ -6,19 +6,10 @@
 
 <div class="text-center container">
     <h1 class="display-3">Welcome</h1>
-    <span class="text-center">Login to continue</span>
-    
-    <div class="container w-50 border border-success rounded form-group">
-        <form method="post">
-            <div class="form-group">
-                <label for="usr-name">Username</label>
-                <input type="text" id="usr-name" class="form-control" />
 
-                <label for="pwd">Password</label>
-                <input type="password" id="pwd" class="form-control mb-2" />
+    <br />
 
-                <input type="submit" class="btn btn-primary text-white" value="Login"/>
-            </div>
-        </form>
-    </div>
+    <a asp-page="Login" class="btn btn-primary text-white">Login</a>
+    <a asp-page="Signup" class="btn btn-primary text-white">Register</a>
+
 </div>

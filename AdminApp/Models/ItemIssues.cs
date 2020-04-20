@@ -11,7 +11,6 @@ namespace AdminApp.Models
         [Key]
         public int ItemId { get; set; }
 
-
         [Required]
         public string RequesterEmail { get; set; }
 
@@ -22,6 +21,6 @@ namespace AdminApp.Models
         public int QuantityIssued { get; set; }
 
         [Required]
-        public DateTime IssuedAt => DateTime.Now;
+        public DateTime IssuedAt { get; set; }
     }
 }

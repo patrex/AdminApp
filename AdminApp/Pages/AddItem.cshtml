@@ -1,0 +1,50 @@
+﻿@page
+@model AdminApp.Pages.AddItemModel
+@{
+    ViewData["Title"] = "AddItem";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="container row">
+
+    <div class="col-9">
+        <h2 class="text-info">Add Item</h2>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            <div class="form-group row p-2">
+                <div class="col-4">
+                    <label asp-for="Item.ItemName">Item name</label>
+                </div>
+                <div class="col-6 mb-2">
+                    <input asp-for="Item.ItemName" class="form-control" />
+                </div>
+
+                <div class="col-4">
+                    <label asp-for="Item.QuantityAdded">Quantity</label>
+                </div>
+                <div class="col-6 mb-2 ">
+                    <input asp-for="Item.QuantityAdded" class="form-control" type="number" />
+                </div>
+
+                <div class="col-4">
+                    <label asp-for="Item.DateAdded">Date</label>
+                </div>
+                <div class="col-6 mb-2 ">
+                    <input asp-for="Item.DateAdded" class="form-control" type="date" />
+                </div>
+
+                <div class="row container mx-auto w-50">
+                    <input class="btn btn-primary text-white mr-2" type="submit" />
+                    <a asp-page="Index" class="btn btn-danger text-white">Discard</a>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+

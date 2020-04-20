@@ -4,14 +4,16 @@ using AdminApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200417142817_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,9 +137,8 @@ namespace AdminApp.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Item")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Purpose")
                         .IsRequired()
@@ -151,6 +152,8 @@ namespace AdminApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RequestId");
+
+                    b.HasIndex("ItemId");
 
                     b.ToTable("Requests");
                 });
@@ -179,6 +182,15 @@ namespace AdminApp.Migrations
                     b.HasOne("AdminApp.Models.APINUser", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuereMail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AdminApp.Models.Requests", b =>
+                {
+                    b.HasOne("AdminApp.Models.StoreItems", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

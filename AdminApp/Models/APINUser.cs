@@ -11,9 +11,25 @@ namespace AdminApp.Models
         [Key]
         public string eMail { get; set; }
 
+        [Required]
+        public string Pswd { get; set; }
+
+        [Required]
         public string Firstname { get; set; }
+
+        [Required]
         public string Lastname { get; set; }
 
+        public bool IsAdmin { get; set; }
+
+        [Required]
+        public string Department { get; set; }
+
         public string Fullname => $"{Firstname} {Lastname}";
+
+        public string ToString 
+        { 
+            get { return Fullname; }
+        }
     }
 }

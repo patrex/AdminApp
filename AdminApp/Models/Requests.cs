@@ -14,10 +14,17 @@ namespace AdminApp.Models
         [Required]
         public int QuantityRequested { get; set; }
 
-        public DateTime DateRequeste => DateTime.Now;
+        [Required]
+        public string Purpose { get; set; }
 
-        public APINUser UserRequesting { get; set; }
+        public bool IsApproved { get; set; }
 
-        public StoreItems Item { get; set; }
+        public DateTime DateRequested { get; set; }
+
+        [Required]
+        public string UserRequesting { get; set; }
+
+        [Required]
+        public string Item { get; set; }
     }
 }

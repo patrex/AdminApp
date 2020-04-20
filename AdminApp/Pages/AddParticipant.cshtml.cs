@@ -48,7 +48,7 @@ namespace AdminApp.Pages
                 await _db.ConfirmedEvents.AddAsync(CurrentEvent);
                 await _db.SaveChangesAsync();
 
-                return RedirectToPage("EditEvent");
+                return RedirectToPage("Index");
             }
             else
             {

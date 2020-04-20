@@ -1,0 +1,85 @@
+﻿@page
+@model AdminApp.Pages.ViewUsersModel
+@{
+    ViewData["Title"] = "ViewUsers";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="container row">
+
+    <div class="col-9">
+        <h2 class="text-info">User List</h2>
+    </div>
+
+    <div class="col-3">
+        <a asp-page="AddUser" class="btn btn-info form-control text-white">Add User</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        @if (Model.Users.Count() > 0)
+        {
+            <table class="table table-striped table-success border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="Users.FirstOrDefault().Fullname">Name</label>
+                    </th>
+
+                    <th>
+                        <label asp-for="Users.FirstOrDefault().Department">Department</label>
+                    </th>
+
+                    <th>
+                        <label asp-for="Users.FirstOrDefault().IsAdmin" class="border-right">User Is Admin?</label>
+                    </th>
+
+                    <th>
+                        <label>Actions</label>
+                    </th>
+                </tr>
+
+                @foreach (var someUser in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            <a asp-route-id="@someUser.eMail">@Html.DisplayFor(m => someUser.ToString)</a>
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(m => someUser.Department)
+                        </td>
+
+                        <td>
+                            @if (!someUser.IsAdmin)
+                            {
+                                <span>No</span>
+                            }
+                            else
+                            {
+                                <span>Yes</span>
+                            }
+                            @*@Html.DisplayFor(m => someUser.IsAdmin)*@
+                        </td>
+
+                        <td>
+                            @if (someUser.IsAdmin)
+                            {
+                                <a class="btn btn-danger text-white" asp-route-id="@someUser.eMail">Demote</a>
+                            }
+                            else
+                            {
+                                <button OnClick="" class="btn btn-primary text-white" asp-route-id="@someUser.eMail">Make Admin</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>You have not added any users</p>
+        }
+    </div>
+</div>
+
