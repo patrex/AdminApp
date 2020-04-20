@@ -1,0 +1,92 @@
+﻿@page
+@model AdminApp.Pages.ViewRequestsModel
+@{
+    ViewData["Title"] = "ViewRequests";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="container row">
+    <div class="col-9">
+        <h2 class="text-info">Requests</h2>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.AllRequests.Count() > 0)
+            {
+                <table class="table table-striped table-success border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="AllRequests.FirstOrDefault().UserRequesting">User</label>
+                        </th>
+
+                        <th>
+                            <label asp-for="AllRequests.FirstOrDefault().Item">Item</label>
+                        </th>
+
+                        <th>
+                            <label asp-for="AllRequests.FirstOrDefault().Purpose" >Purpose</label>
+                        </th>
+
+                        <th>
+                            <label asp-for="AllRequests.FirstOrDefault().IsApproved">Status</label>
+                        </th>
+
+                        <th>
+                            <label>Actions</label>
+                        </th>
+                    </tr>
+
+                    @foreach (var someReq in Model.AllRequests)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-route-id="@someReq.UserRequesting">@Html.DisplayFor(m => someReq.UserRequesting)</a>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => someReq.Item)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => someReq.Purpose)
+                            </td>
+
+                            <td>
+                                @if (someReq.IsApproved)
+                                {
+                                    <span class="btn btn-success text-white">Approved</span>
+                                }
+                                else
+                                {
+                                    <span class="btn btn-info text-white">Pending...</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (!someReq.IsApproved)
+                                {
+                                    <button class="btn btn-primary text-white" asp-route-id="@someReq.RequestId" asp-page-handler="approve">Approve</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-success text-success" disabled>Approved</button>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>You have not added any users</p>
+            }
+        </form>
+    </div>
+
+
+
+</div>

@@ -19,6 +19,8 @@ namespace AdminApp.Models
 
         public DateTime DateAdded { get; set; }
 
+        public int QtyLeft { get; set; }
+
         public string ToString { get { return $"{ItemName}"; } }
     }
 }

@@ -29,6 +29,10 @@
                     <th>
                         <label asp-for="Items.FirstOrDefault().QuantityAdded">Number in stock</label>
                     </th>
+
+                    <th>
+                        <label>Actions</label>
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.Items)
@@ -39,10 +43,16 @@
                         </td>
 
                         <td>
-                            <a class="glyphicon glyphicon-plus text-white btn btn-danger" asp-route-id="@item.Id">-</a>
                             @Html.DisplayFor(m => item.QuantityAdded)
-                            <a class="glyphicon glyphicon-minus text-white btn btn-success" asp-route-id="@item.Id">+</a>
+                            
                         </td>
+
+                        <td>
+                            <input type="number" class="form-control w-25" />
+                            <button asp-page-handler="increment" class="text-white btn btn-success" id="increment" asp-route-id="@item.Id">+</button>
+                        </td>
+
+
                     </tr>
                 }
             </table>

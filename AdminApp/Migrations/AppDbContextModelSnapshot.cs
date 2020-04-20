@@ -135,6 +135,9 @@ namespace AdminApp.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsServed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Item")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -172,6 +175,9 @@ namespace AdminApp.Migrations
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QtyLeft")
+                        .HasColumnType("int");
 
                     b.Property<int>("QuantityAdded")
                         .HasColumnType("int");

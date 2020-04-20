@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200417155226_ChangeItemFromStoreItemToString")]
-    partial class ChangeItemFromStoreItemToString
+    [Migration("20200420174102_Reset_AddColumnIsServedForCompletedRequests")]
+    partial class Reset_AddColumnIsServedForCompletedRequests
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,6 +137,9 @@ namespace AdminApp.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsServed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Item")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,6 +150,10 @@ namespace AdminApp.Migrations
 
                     b.Property<int>("QuantityRequested")
                         .HasColumnType("int");
+
+                    b.Property<string>("RequesterEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserRequesting")
                         .IsRequired()
@@ -164,9 +171,15 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QtyLeft")
+                        .HasColumnType("int");
 
                     b.Property<int>("QuantityAdded")
                         .HasColumnType("int");

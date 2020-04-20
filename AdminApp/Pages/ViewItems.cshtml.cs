@@ -18,10 +18,20 @@ namespace AdminApp.Pages
             _db = db;
         }
 
+        public StoreItems Item { get; set; }
+
         public IEnumerable<StoreItems> Items { get; set; }
         public async Task OnGet()
         {
             Items = await _db.StoreItems.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostIncrement(int id)
+        {
+            Item = await _db.StoreItems.FindAsync(id);
+            await _db.SaveChangesAsync();
+
+            return RedirectToPage();
         }
     }
 }
