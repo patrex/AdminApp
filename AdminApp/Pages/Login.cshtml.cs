@@ -43,10 +43,12 @@ namespace AdminApp.Pages
                 if (SomeUser.Pswd == password)
                 {
                     if (SomeUser.IsAdmin) return RedirectToPage("AdminDashboard", email);     //admin login
+                    if (SomeUser.IsElevatedUser) return RedirectToPage("ElevatedUserDashboard", email);     //elevated login
+
                     return RedirectToPage("UserDashboard", email); //normal login
                 }   
 
-                return RedirectToPage("Error");
+                return RedirectToPage("Error");     //bad password
             }
 
             else return NotFound();

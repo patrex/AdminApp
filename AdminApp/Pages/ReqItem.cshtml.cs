@@ -25,6 +25,8 @@ namespace AdminApp.Pages
         [BindProperty]
         public IEnumerable<StoreItems> Items { get; set; }
 
+        public StoreItems SomeItem { get; set; }
+
         public List<SelectListItem> Options { get; set; }
 
         [BindProperty]
@@ -57,7 +59,6 @@ namespace AdminApp.Pages
         public async Task<IActionResult> OnPost(string id)
         {
             Requester = await _db.Users.FindAsync(id);
-            
 
             UserRequest.UserRequesting = Requester.ToString;
             UserRequest.DateRequested = DateTime.Now;

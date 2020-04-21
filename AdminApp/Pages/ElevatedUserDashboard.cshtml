@@ -1,0 +1,20 @@
+﻿@page
+@model AdminApp.Pages.ElevatedUserDashboardModel
+@{
+    ViewData["Title"] = "ElevatedUserDashboard";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="container row">
+    <div class="col-9">
+        <h2 class="text-info">Hello, @Model.ElevatedUser.ToString</h2>
+    </div>
+
+    <div class="col-3">
+        <a asp-page="ViewRequests" asp-route-id="@Model.ElevatedUser.eMail" class="btn btn-info form-control text-white">View Requests</a>
+    </div>
+</div>
+
+

@@ -31,10 +31,7 @@ namespace AdminApp.Pages
             if(handler != null)
             {
                 CurrentUser = await _db.Users.FindAsync(handler);
-
                 MyRequests = from r in _db.Requests where r.RequesterEmail == handler select r;
-                //Reqs.FindAll(r => r.RequesterEmail == handler);
-
             }
             else
             {

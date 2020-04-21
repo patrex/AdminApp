@@ -21,16 +21,27 @@ namespace AdminApp.Pages
 
         public Requests SomeRequest { get; set; }
 
-        public void OnGet()
+        public ItemIssues Issue { get; set; }
+
+        public APINUser Issuer { get; set; }
+
+        public async Task OnGet(string id)
         {
             ApprovedRequests = from ar in _db.Requests where ar.IsApproved select ar;
+            Issuer = await _db.Users.FindAsync(id);
         }
 
         public async Task<IActionResult> OnPost(int id)
         {
             SomeRequest = await _db.Requests.FindAsync(id);
 
-            SomeRequest.IsServed = true;
+            Issue.RequestId = SomeRequest.RequestId;
+            Issue.QuantityIssued = SomeRequest.QuantityRequested;
+            Issue.IssuedAt = DateTime.Now;
+            Issue.Issuer = Issuer.Fullname;
+
+            SomeRequest.IsServed = true;    //mark request as done
+
             await _db.SaveChangesAsync();
 
             return RedirectToPage();

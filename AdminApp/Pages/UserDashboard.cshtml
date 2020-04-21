@@ -21,53 +21,63 @@
     </div>
 
     <br />
+    <div class="col-12 border p-3 mt-3">
+        @if (Model.MyRequests.Count() > 0)
+        {
 
-    @if (Model.MyRequests.Count() > 0)
-    {
-        <table class="table table-striped table-success border">
-            <tr class="table-secondary">
-                <th>
-                    <label asp-for="MyRequests.FirstOrDefault().Item">Request</label>
-                </th>
+            <table class="table table-striped table-success border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="MyRequests.FirstOrDefault().Item">Request</label>
+                    </th>
 
-                <th>
-                    <label asp-for="MyRequests.FirstOrDefault().QuantityRequested">Amount</label>
-                </th>
+                    <th>
+                        <label asp-for="MyRequests.FirstOrDefault().QuantityRequested">Amount</label>
+                    </th>
 
-                <th>
-                    <label asp-for="MyRequests.FirstOrDefault().DateRequested">Date Requested</label>
-                </th>
+                    <th>
+                        <label asp-for="MyRequests.FirstOrDefault().DateRequested">Date Requested</label>
+                    </th>
 
-                <th>
-                    <label>Actions</label>
-                </th>
-            </tr>
-
-            @foreach (var request in Model.MyRequests)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(m => request.Item)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(m => request.QuantityRequested)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(m => request.DateRequested)
-                    </td>
-
-                   
-                    <td><a class="fa fa-trash text-danger" aria-hidden="true" asp-route-id="@request.RequestId"></a></td>
+                    <th>
+                        <label>Actions</label>
+                    </th>
                 </tr>
-            }
-        </table>
-    }
-    else
-    {
-        <p>You have not made any requests from the store yet</p>
-    }
 
+                @foreach (var request in Model.MyRequests)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => request.Item)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(m => request.QuantityRequested)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(m => request.DateRequested)
+                        </td>
+
+
+                        <td>
+                            @if (!request.IsApproved)
+                            {
+                                <a class="fa fa-trash text-danger" aria-hidden="true" asp-route-id="@request.RequestId"></a>
+                            }
+                            else
+                            {
+                                <i class="fa fa-trash text-black-50" aria-hidden="true" asp-route-id="@request.RequestId"></i>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>You have not made any requests from the store yet</p>
+        }
+    </div>
 </div>
 

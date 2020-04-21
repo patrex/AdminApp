@@ -31,5 +31,7 @@ namespace AdminApp.Models
         { 
             get { return Fullname; }
         }
+
+        public bool IsElevatedUser { get; set; }
     }
 }
