@@ -28,12 +28,15 @@ namespace AdminApp.Pages
         public async Task OnGet(string id)
         {
             ApprovedRequests = from ar in _db.Requests where ar.IsApproved select ar;
-            Issuer = await _db.Users.FindAsync(id);
         }
 
-        public async Task<IActionResult> OnPost(int id)
+        public async Task<IActionResult> OnPost(int reqid, string id)
         {
-            SomeRequest = await _db.Requests.FindAsync(id);
+            SomeRequest = await _db.Requests.FindAsync(reqid);
+
+            Issuer = await _db.Users.FindAsync(id);
+
+            Issue = new ItemIssues();
 
             Issue.RequestId = SomeRequest.RequestId;
             Issue.QuantityIssued = SomeRequest.QuantityRequested;
@@ -42,6 +45,7 @@ namespace AdminApp.Pages
 
             SomeRequest.IsServed = true;    //mark request as done
 
+            await _db.Issues.AddAsync(Issue);
             await _db.SaveChangesAsync();
 
             return RedirectToPage();

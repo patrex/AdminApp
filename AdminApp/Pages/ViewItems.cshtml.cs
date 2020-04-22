@@ -29,6 +29,8 @@ namespace AdminApp.Pages
         public async Task<IActionResult> OnPostIncrement(int id)
         {
             Item = await _db.StoreItems.FindAsync(id);
+            Item.QtyLeft += 1;
+
             await _db.SaveChangesAsync();
 
             return RedirectToPage();

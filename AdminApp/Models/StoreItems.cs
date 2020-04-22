@@ -15,6 +15,7 @@ namespace AdminApp.Models
         public string ItemName { get; set; }
 
         [Required]
+        [Range(1, 1000, ErrorMessage = "You have to enter how many of this item to add")]
         public int QuantityAdded { get; set; }
 
         public DateTime DateAdded { get; set; }

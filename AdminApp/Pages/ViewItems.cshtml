@@ -18,49 +18,50 @@
     </div>
 
     <div class="col-12 border p-3 mt-3">
-        @if (Model.Items.Count() > 0)
-        {
-            <table class="table table-striped table-success border">
-                <tr class="table-secondary">
-                    <th>
-                        <label asp-for="Items.FirstOrDefault().ItemName">Name</label>
-                    </th>
+        <form method="post">
+            @if (Model.Items.Count() > 0)
+            {
+                <table class="table table-striped table-success border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Items.FirstOrDefault().ItemName">Name</label>
+                        </th>
 
-                    <th>
-                        <label asp-for="Items.FirstOrDefault().QuantityAdded">Number in stock</label>
-                    </th>
+                        <th>
+                            <label asp-for="Items.FirstOrDefault().QtyLeft">Number in stock</label>
+                        </th>
 
-                    <th>
-                        <label>Actions</label>
-                    </th>
-                </tr>
-
-                @foreach (var item in Model.Items)
-                {
-                    <tr>
-                        <td>
-                            <a asp-route-id="@item.Id">@Html.DisplayFor(m => item.ItemName)</a>
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(m => item.QuantityAdded)
-                            
-                        </td>
-
-                        <td>
-                            <input type="number" class="form-control w-25" />
-                            <button asp-page-handler="increment" class="text-white btn btn-success" id="increment" asp-route-id="@item.Id">+</button>
-                        </td>
-
-
+                        <th>
+                            <label>Actions</label>
+                        </th>
                     </tr>
-                }
-            </table>
-        }
-        else
-        {
-            <p>You have not added any items</p>
-        }
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-route-id="@item.Id">@Html.DisplayFor(m => item.ItemName)</a>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.QtyLeft)
+                            </td>
+
+                            <td>
+                                <div class="input-group">
+                                    @*<input type="number" class="form-control w-25" name="incby" />*@
+                                    <button asp-page-handler="increment" class="text-white btn btn-success input-group-append" asp-route-id="@item.Id">+</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>You have not added any items</p>
+            }
+        </form>
     </div>
 </div>
 
