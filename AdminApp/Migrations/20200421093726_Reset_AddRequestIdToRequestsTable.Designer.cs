@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200417155226_ChangeItemFromStoreItemToString")]
-    partial class ChangeItemFromStoreItemToString
+    [Migration("20200421093726_Reset_AddRequestIdToRequestsTable")]
+    partial class Reset_AddRequestIdToRequestsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,9 @@ namespace AdminApp.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsElevatedUser")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -82,7 +85,7 @@ namespace AdminApp.Migrations
 
             modelBuilder.Entity("AdminApp.Models.ItemIssues", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("RequestId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -90,9 +93,9 @@ namespace AdminApp.Migrations
                     b.Property<DateTime>("IssuedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IssuereMail")
+                    b.Property<string>("Issuer")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuantityIssued")
                         .HasColumnType("int");
@@ -101,9 +104,7 @@ namespace AdminApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ItemId");
-
-                    b.HasIndex("IssuereMail");
+                    b.HasKey("RequestId");
 
                     b.ToTable("Issues");
                 });
@@ -137,6 +138,9 @@ namespace AdminApp.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsServed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Item")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,6 +151,10 @@ namespace AdminApp.Migrations
 
                     b.Property<int>("QuantityRequested")
                         .HasColumnType("int");
+
+                    b.Property<string>("RequesterEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserRequesting")
                         .IsRequired()
@@ -164,9 +172,15 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QtyLeft")
+                        .HasColumnType("int");
 
                     b.Property<int>("QuantityAdded")
                         .HasColumnType("int");
@@ -174,15 +188,6 @@ namespace AdminApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StoreItems");
-                });
-
-            modelBuilder.Entity("AdminApp.Models.ItemIssues", b =>
-                {
-                    b.HasOne("AdminApp.Models.APINUser", "Issuer")
-                        .WithMany()
-                        .HasForeignKey("IssuereMail")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

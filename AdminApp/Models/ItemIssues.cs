@@ -9,13 +9,13 @@ namespace AdminApp.Models
     public class ItemIssues
     {
         [Key]
-        public int ItemId { get; set; }
+        public int RequestId { get; set; }
 
         [Required]
         public string RequesterEmail { get; set; }
 
         [Required]
-        public APINUser Issuer { get; set; }
+        public string Issuer { get; set; }
 
         [Required]
         public int QuantityIssued { get; set; }

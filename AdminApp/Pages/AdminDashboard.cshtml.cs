@@ -19,15 +19,17 @@ namespace AdminApp.Pages
 
         public IEnumerable<APINUser> Users { get; set; }
 
+        public APINUser CurrentUser { get; set; }
+
         public IEnumerable<StoreItems> Items { get; set; }
 
         public IEnumerable<ItemIssues> Issues { get; set; }
 
         public IEnumerable<Requests> Requests { get; set; }
 
-        public void OnGet()
+        public async Task OnGet(string handler)
         {
-
+            CurrentUser = await _db.Users.FindAsync(handler);
         }
     }
 }

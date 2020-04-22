@@ -26,5 +26,11 @@ namespace AdminApp.Models
 
         [Required]
         public string Item { get; set; }
+
+        [EmailAddress]
+        [Required]
+        public string RequesterEmail { get; set; }
+
+        public bool IsServed { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace AdminApp.Pages
         public async Task<IActionResult> OnPost()
         {
             //SomeUser = null;
-            var password = SomeUser.Pswd;
+            var password = SomeUser.Password;
             var email = SomeUser.eMail;
 
             SomeUser = await _db.Users.FindAsync(email);
@@ -40,10 +40,15 @@ namespace AdminApp.Pages
 
             if (SomeUser != null)
             {
-                if (SomeUser.Pswd == password)
-                    return RedirectToPage("UserDashboard", email);
+                if (SomeUser.Password == password)
+                {
+                    if (SomeUser.IsAdmin) return RedirectToPage("AdminDashboard", email);     //admin login
+                    if (SomeUser.IsElevatedUser) return RedirectToPage("ElevatedUserDashboard", email);     //elevated login
 
-                return RedirectToPage("Error");
+                    return RedirectToPage("UserDashboard", email); //normal login
+                }   
+
+                return RedirectToPage("Error");     //bad password
             }
 
             else return NotFound();

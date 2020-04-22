@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AdminApp.Migrations
 {
-    public partial class NewMigration : Migration
+    public partial class Reset_AddRequestIdToRequestsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,13 +38,51 @@ namespace AdminApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Issues",
+                columns: table => new
+                {
+                    RequestId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RequesterEmail = table.Column<string>(nullable: false),
+                    Issuer = table.Column<string>(nullable: false),
+                    QuantityIssued = table.Column<int>(nullable: false),
+                    IssuedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Issues", x => x.RequestId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Requests",
+                columns: table => new
+                {
+                    RequestId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuantityRequested = table.Column<int>(nullable: false),
+                    Purpose = table.Column<string>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false),
+                    DateRequested = table.Column<DateTime>(nullable: false),
+                    UserRequesting = table.Column<string>(nullable: false),
+                    Item = table.Column<string>(nullable: false),
+                    RequesterEmail = table.Column<string>(nullable: false),
+                    IsServed = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Requests", x => x.RequestId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StoreItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ItemName = table.Column<string>(nullable: false),
-                    QuantityAdded = table.Column<int>(nullable: false)
+                    QuantityAdded = table.Column<int>(nullable: false),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    QtyLeft = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,68 +98,13 @@ namespace AdminApp.Migrations
                     Firstname = table.Column<string>(nullable: false),
                     Lastname = table.Column<string>(nullable: false),
                     IsAdmin = table.Column<bool>(nullable: false),
-                    Department = table.Column<string>(nullable: false)
+                    Department = table.Column<string>(nullable: false),
+                    IsElevatedUser = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.eMail);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Requests",
-                columns: table => new
-                {
-                    RequestId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuantityRequested = table.Column<int>(nullable: false),
-                    Purpose = table.Column<string>(nullable: false),
-                    IsApproved = table.Column<bool>(nullable: false),
-                    DateRequested = table.Column<DateTime>(nullable: false),
-                    UserRequesting = table.Column<string>(nullable: false),
-                    ItemId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Requests", x => x.RequestId);
-                    table.ForeignKey(
-                        name: "FK_Requests_StoreItems_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "StoreItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Issues",
-                columns: table => new
-                {
-                    ItemId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RequesterEmail = table.Column<string>(nullable: false),
-                    IssuereMail = table.Column<string>(nullable: false),
-                    QuantityIssued = table.Column<int>(nullable: false),
-                    IssuedAt = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Issues", x => x.ItemId);
-                    table.ForeignKey(
-                        name: "FK_Issues_Users_IssuereMail",
-                        column: x => x.IssuereMail,
-                        principalTable: "Users",
-                        principalColumn: "eMail",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Issues_IssuereMail",
-                table: "Issues",
-                column: "IssuereMail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Requests_ItemId",
-                table: "Requests",
-                column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -139,10 +122,10 @@ namespace AdminApp.Migrations
                 name: "Requests");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "StoreItems");
 
             migrationBuilder.DropTable(
-                name: "StoreItems");
+                name: "Users");
         }
     }
 }

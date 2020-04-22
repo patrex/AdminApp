@@ -21,16 +21,24 @@ namespace AdminApp.Pages
         [BindProperty]
         public APINUser CurrentUser { get; set; }
 
+        public IEnumerable<Requests> MyRequests { get; set; }
+
         [BindProperty]
         public IEnumerable<StoreItems> Items { get; set; }
 
-        public async Task OnGet(string handler)
+        public async Task OnGet(string handler, string id)
         {
-            
             if(handler != null)
             {
                 CurrentUser = await _db.Users.FindAsync(handler);
+                MyRequests = from r in _db.Requests where r.RequesterEmail == handler select r;
             }
+            else
+            {
+                handler = id;
+                CurrentUser = await _db.Users.FindAsync(handler);
+            }
+            // else { RedirectToPage("Error"); }
 
             Items = await _db.StoreItems.ToListAsync();
         }
