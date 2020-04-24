@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200421093726_Reset_AddRequestIdToRequestsTable")]
-    partial class Reset_AddRequestIdToRequestsTable
+    [Migration("20200423114052_RemoveRequesterEmailFromIssuesTable")]
+    partial class RemoveRequesterEmailFromIssuesTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,11 +58,13 @@ namespace AdminApp.Migrations
 
                     b.Property<string>("Department")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Firstname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
@@ -72,11 +74,13 @@ namespace AdminApp.Migrations
 
                     b.Property<string>("Lastname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<string>("Pswd")
+                    b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("eMail");
 
@@ -85,7 +89,7 @@ namespace AdminApp.Migrations
 
             modelBuilder.Entity("AdminApp.Models.ItemIssues", b =>
                 {
-                    b.Property<int>("RequestId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -100,11 +104,10 @@ namespace AdminApp.Migrations
                     b.Property<int>("QuantityIssued")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequesterEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RequestId")
+                        .HasColumnType("int");
 
-                    b.HasKey("RequestId");
+                    b.HasKey("Id");
 
                     b.ToTable("Issues");
                 });
@@ -172,12 +175,17 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("QtyLeft")
                         .HasColumnType("int");

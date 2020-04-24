@@ -12,7 +12,11 @@ namespace AdminApp.Models
         public int Id { get; set; }
 
         [Required]
+        [StringLength(50, MinimumLength = 5)]
         public string ItemName { get; set; }
+
+        [Required]
+        public string AddedBy { get; set; }
 
         [Required]
         [Range(1, 1000, ErrorMessage = "You have to enter how many of this item to add")]

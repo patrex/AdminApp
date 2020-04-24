@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200422092317_RefreshDbChangePswdToPassword")]
-    partial class RefreshDbChangePswdToPassword
+    [Migration("20200423111314_AddAddedByColumnToStoreSchema")]
+    partial class AddAddedByColumnToStoreSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,7 +89,7 @@ namespace AdminApp.Migrations
 
             modelBuilder.Entity("AdminApp.Models.ItemIssues", b =>
                 {
-                    b.Property<int>("RequestId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -104,11 +104,14 @@ namespace AdminApp.Migrations
                     b.Property<int>("QuantityIssued")
                         .HasColumnType("int");
 
+                    b.Property<int>("RequestId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RequesterEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RequestId");
+                    b.HasKey("Id");
 
                     b.ToTable("Issues");
                 });
@@ -176,12 +179,17 @@ namespace AdminApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("QtyLeft")
                         .HasColumnType("int");

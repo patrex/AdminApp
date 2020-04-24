@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AdminApp.Migrations
 {
-    public partial class Reset_AddRequestIdToRequestsTable : Migration
+    public partial class Reset_Newu : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,8 +41,9 @@ namespace AdminApp.Migrations
                 name: "Issues",
                 columns: table => new
                 {
-                    RequestId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    RequestId = table.Column<int>(nullable: false),
                     RequesterEmail = table.Column<string>(nullable: false),
                     Issuer = table.Column<string>(nullable: false),
                     QuantityIssued = table.Column<int>(nullable: false),
@@ -50,7 +51,7 @@ namespace AdminApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Issues", x => x.RequestId);
+                    table.PrimaryKey("PK_Issues", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,11 +95,11 @@ namespace AdminApp.Migrations
                 columns: table => new
                 {
                     eMail = table.Column<string>(nullable: false),
-                    Pswd = table.Column<string>(nullable: false),
-                    Firstname = table.Column<string>(nullable: false),
-                    Lastname = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(maxLength: 30, nullable: false),
+                    Firstname = table.Column<string>(maxLength: 30, nullable: false),
+                    Lastname = table.Column<string>(maxLength: 30, nullable: false),
                     IsAdmin = table.Column<bool>(nullable: false),
-                    Department = table.Column<string>(nullable: false),
+                    Department = table.Column<string>(maxLength: 100, nullable: false),
                     IsElevatedUser = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

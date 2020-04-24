@@ -19,37 +19,39 @@ namespace AdminApp.Pages
 
         public IEnumerable<Requests> ApprovedRequests { get; set; }
 
+        [BindProperty]
         public Requests SomeRequest { get; set; }
 
         public ItemIssues Issue { get; set; }
 
+        [BindProperty]
         public APINUser Issuer { get; set; }
 
         public async Task OnGet(string id)
         {
-            ApprovedRequests = from ar in _db.Requests where ar.IsApproved select ar;
+            ApprovedRequests = from ar in _db.Requests where ar.IsApproved && !ar.IsServed select ar;
             Issuer = await _db.Users.FindAsync(id);
-
         }
 
-        public async Task<IActionResult> OnPost(int reqid)
+        public async Task<IActionResult> OnPost(int reqid, string email)
         {
             SomeRequest = await _db.Requests.FindAsync(reqid);
+            Issuer = await _db.Users.FindAsync(email);
 
             Issue = new ItemIssues();
 
             Issue.RequestId = SomeRequest.RequestId;
             Issue.QuantityIssued = SomeRequest.QuantityRequested;
             Issue.IssuedAt = DateTime.Now;
-            
-
+            Issue.Issuer = Issuer.ToString;
 
             SomeRequest.IsServed = true;    //mark request as done
 
             await _db.Issues.AddAsync(Issue);
             await _db.SaveChangesAsync();
 
-            return RedirectToPage();
+            if (Issuer.IsAdmin) return RedirectToPage("AdminDashboard", Issuer.eMail);
+            else return RedirectToPage("ElevatedUserDashboard", Issuer.eMail);
         }
     }
 }

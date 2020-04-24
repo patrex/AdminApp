@@ -26,8 +26,9 @@ namespace AdminApp.Pages
             Items = await _db.StoreItems.ToListAsync();
         }
 
-        public async Task<IActionResult> OnPostIncrement(int id)
+        public async Task<IActionResult> OnPostIncrement(int id, string amt)
         {
+
             Item = await _db.StoreItems.FindAsync(id);
             Item.QtyLeft += 1;
 
