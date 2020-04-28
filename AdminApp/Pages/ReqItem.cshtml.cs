@@ -44,11 +44,11 @@ namespace AdminApp.Pages
                 Items = await _db.StoreItems.ToListAsync();
 
                 //populate the select list
-                Options = Items.Select(a => 
-                                        new SelectListItem { 
-                                            Value = a.ItemName,
-                                            Text = a.ItemName
-                                        }).ToList();
+                //Options = Items.Select(a => 
+                //                        new SelectListItem { 
+                //                            Value = a.ItemName,
+                //                            Text = a.ItemName
+                //                        }).ToList();
             } 
             else
             {
@@ -58,7 +58,13 @@ namespace AdminApp.Pages
 
         public async Task<IActionResult> OnPost(string id)
         {
-            Requester = await _db.Users.FindAsync(id);
+            Requester = await _db.Users.FindAsync(id);  // get the requester
+
+            int ItemId = Int32.Parse(UserRequest.Item); // convert the item id to int
+
+            UserRequest.ItemId = ItemId;    // assign item id
+
+            UserRequest.Item = (from s in _db.StoreItems where s.Id == ItemId select s.ItemName).Single();  // get the item name as a string
 
             UserRequest.UserRequesting = Requester.ToString;
             UserRequest.DateRequested = DateTime.Now;

@@ -20,9 +20,12 @@
                 <input type="email" id="usr-name" asp-for="SomeUser.eMail" class="form-control" required />
                 <span asp-validation-for="SomeUser.eMail" class="text-danger"></span>
 
+                <br />
                 <label for="pwd" asp-for="SomeUser.Password">Enter your password</label>
                 <input type="password" id="pwd" asp-for="SomeUser.Password" class="form-control mb-2" required />
                 <span asp-validation-for="SomeUser.Password" class="text-danger"></span>
+
+                <br />
 
                 <input type="submit" class="btn btn-primary text-white" value="Login" />
 

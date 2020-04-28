@@ -27,6 +27,9 @@ namespace AdminApp.Pages
         [BindProperty]
         public APINUser Issuer { get; set; }
 
+        [BindProperty]
+        public StoreItems SomeItem { get; set; }
+
         public async Task OnGet(string id)
         {
             ApprovedRequests = from ar in _db.Requests where ar.IsApproved && !ar.IsServed select ar;
@@ -35,8 +38,19 @@ namespace AdminApp.Pages
 
         public async Task<IActionResult> OnPost(int reqid, string email)
         {
-            SomeRequest = await _db.Requests.FindAsync(reqid);
-            Issuer = await _db.Users.FindAsync(email);
+            SomeRequest = await _db.Requests.FindAsync(reqid);  // find the request
+            Issuer = await _db.Users.FindAsync(email);  // find the Issuer
+            SomeItem = await _db.StoreItems.FindAsync(SomeRequest.ItemId);  // find the item from the list
+
+            // int Limit = (SomeRequest.QuantityRequested / SomeItem.QtyLeft) * 100;
+
+            int diff = SomeItem.QtyLeft - SomeRequest.QuantityRequested;
+
+            if (diff > 0)
+            {
+                SomeItem.QtyLeft -= SomeRequest.QuantityRequested;
+                SomeRequest.IsServed = true;    //mark request as done
+            }
 
             Issue = new ItemIssues();
 
@@ -44,8 +58,6 @@ namespace AdminApp.Pages
             Issue.QuantityIssued = SomeRequest.QuantityRequested;
             Issue.IssuedAt = DateTime.Now;
             Issue.Issuer = Issuer.ToString;
-
-            SomeRequest.IsServed = true;    //mark request as done
 
             await _db.Issues.AddAsync(Issue);
             await _db.SaveChangesAsync();
