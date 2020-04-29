@@ -19,37 +19,51 @@ namespace AdminApp.Pages
 
         public IEnumerable<Requests> ApprovedRequests { get; set; }
 
+        [BindProperty]
         public Requests SomeRequest { get; set; }
 
         public ItemIssues Issue { get; set; }
 
+        [BindProperty]
         public APINUser Issuer { get; set; }
+
+        [BindProperty]
+        public StoreItems SomeItem { get; set; }
 
         public async Task OnGet(string id)
         {
-            ApprovedRequests = from ar in _db.Requests where ar.IsApproved select ar;
+            ApprovedRequests = from ar in _db.Requests where ar.IsApproved && !ar.IsServed select ar;
             Issuer = await _db.Users.FindAsync(id);
-
         }
 
-        public async Task<IActionResult> OnPost(int reqid)
+        public async Task<IActionResult> OnPost(int reqid, string email)
         {
-            SomeRequest = await _db.Requests.FindAsync(reqid);
+            SomeRequest = await _db.Requests.FindAsync(reqid);  // find the request
+            Issuer = await _db.Users.FindAsync(email);  // find the Issuer
+            SomeItem = await _db.StoreItems.FindAsync(SomeRequest.ItemId);  // find the item from the list
+
+            // int Limit = (SomeRequest.QuantityRequested / SomeItem.QtyLeft) * 100;
+
+            int diff = SomeItem.QtyLeft - SomeRequest.QuantityRequested;
+
+            if (diff > 0)
+            {
+                SomeItem.QtyLeft -= SomeRequest.QuantityRequested;
+                SomeRequest.IsServed = true;    //mark request as done
+            }
 
             Issue = new ItemIssues();
 
             Issue.RequestId = SomeRequest.RequestId;
             Issue.QuantityIssued = SomeRequest.QuantityRequested;
             Issue.IssuedAt = DateTime.Now;
-            
-
-
-            SomeRequest.IsServed = true;    //mark request as done
+            Issue.Issuer = Issuer.ToString;
 
             await _db.Issues.AddAsync(Issue);
             await _db.SaveChangesAsync();
 
-            return RedirectToPage();
+            if (Issuer.IsAdmin) return RedirectToPage("AdminDashboard", Issuer.eMail);
+            else return RedirectToPage("ElevatedUserDashboard", Issuer.eMail);
         }
     }
 }

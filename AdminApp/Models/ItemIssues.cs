@@ -9,10 +9,10 @@ namespace AdminApp.Models
     public class ItemIssues
     {
         [Key]
-        public int RequestId { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string RequesterEmail { get; set; }
+        public int RequestId { get; set; }
 
         [Required]
         public string Issuer { get; set; }

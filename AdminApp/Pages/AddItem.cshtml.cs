@@ -20,28 +20,25 @@ namespace AdminApp.Pages
         [BindProperty]
         public StoreItems Item { get; set; }
 
+        [BindProperty]
+        public APINUser CurrentUser { get; set; }
 
-        public void OnGet()
+        public async Task OnGet(string id)
         {
-
+            CurrentUser = await _db.Users.FindAsync(id);
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(string id)
         {
-            if (ModelState.IsValid)
-            {
-                Item.QtyLeft = Item.QuantityAdded;
-                Item.DateAdded = DateTime.Now;
-                await _db.StoreItems.AddAsync(Item);
-                await _db.SaveChangesAsync();
+            CurrentUser = await _db.Users.FindAsync(id);
+            Item.QtyLeft = Item.QuantityAdded;
+            Item.DateAdded = DateTime.Now;
+            Item.AddedBy = CurrentUser.Fullname;
 
-                return RedirectToPage("AdminDashboard");
-            }
-            else
-            {
-                return Page();
-            }
+            await _db.StoreItems.AddAsync(Item);
+            await _db.SaveChangesAsync();
 
+            return RedirectToPage("AdminDashboard", CurrentUser.eMail);
         }
     }
 }

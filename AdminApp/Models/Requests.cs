@@ -27,6 +27,8 @@ namespace AdminApp.Models
         [Required]
         public string Item { get; set; }
 
+        public int ItemId { get; set; }
+
         [EmailAddress]
         [Required]
         public string RequesterEmail { get; set; }

@@ -24,6 +24,9 @@ namespace AdminApp.Pages
         public IEnumerable<Requests> MyRequests { get; set; }
 
         [BindProperty]
+        public Requests SomeRequest { get; set; }
+
+        [BindProperty]
         public IEnumerable<StoreItems> Items { get; set; }
 
         public async Task OnGet(string handler, string id)
@@ -41,6 +44,22 @@ namespace AdminApp.Pages
             // else { RedirectToPage("Error"); }
 
             Items = await _db.StoreItems.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostDelete(int reqID, string email)
+        {
+            CurrentUser = await _db.Users.FindAsync(email);
+            SomeRequest = await _db.Requests.FindAsync(reqID);
+
+            if(SomeRequest != null)
+            {
+                _db.Requests.Remove(SomeRequest);
+                await _db.SaveChangesAsync();
+
+                return RedirectToPage("UserDashboard", CurrentUser.eMail);
+            }
+
+            return NotFound();
         }
     }
 }

@@ -27,7 +27,11 @@
                         </th>
 
                         <th>
-                            <label asp-for="AllRequests.FirstOrDefault().Purpose" >Purpose</label>
+                            <label asp-for="AllRequests.FirstOrDefault().QuantityRequested">Quantity</label>
+                        </th>
+
+                        <th>
+                            <label asp-for="AllRequests.FirstOrDefault().Purpose">Purpose</label>
                         </th>
 
                         <th>
@@ -48,6 +52,10 @@
 
                             <td>
                                 @Html.DisplayFor(m => someReq.Item)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => someReq.QuantityRequested)
                             </td>
 
                             <td>

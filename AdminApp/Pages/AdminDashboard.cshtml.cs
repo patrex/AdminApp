@@ -19,6 +19,7 @@ namespace AdminApp.Pages
 
         public IEnumerable<APINUser> Users { get; set; }
 
+        [BindProperty]
         public APINUser CurrentUser { get; set; }
 
         public IEnumerable<StoreItems> Items { get; set; }
@@ -27,8 +28,11 @@ namespace AdminApp.Pages
 
         public IEnumerable<Requests> Requests { get; set; }
 
-        public async Task OnGet(string handler)
+        public async Task OnGet(string handler, string id)
         {
+            if (handler == null) handler = id;
+            if (id != null) handler = id;
+
             CurrentUser = await _db.Users.FindAsync(handler);
         }
     }
