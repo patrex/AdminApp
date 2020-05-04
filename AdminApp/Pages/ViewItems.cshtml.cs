@@ -20,21 +20,15 @@ namespace AdminApp.Pages
 
         public StoreItems Item { get; set; }
 
+        [BindProperty]
+        public APINUser CurrentUser { get; set; }
+
         public IEnumerable<StoreItems> Items { get; set; }
-        public async Task OnGet()
+
+        public async Task OnGet(string id)
         {
             Items = await _db.StoreItems.ToListAsync();
-        }
-
-        public async Task<IActionResult> OnPostIncrement(int id, string amt)
-        {
-
-            Item = await _db.StoreItems.FindAsync(id);
-            Item.QtyLeft += 1;
-
-            await _db.SaveChangesAsync();
-
-            return RedirectToPage();
+            CurrentUser = await _db.Users.FindAsync(id);    // 
         }
     }
 }

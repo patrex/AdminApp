@@ -59,8 +59,9 @@ namespace AdminApp.Pages
             Issue.IssuedAt = DateTime.Now;
             Issue.Issuer = Issuer.ToString;
 
-            await _db.Issues.AddAsync(Issue);
-            await _db.SaveChangesAsync();
+            await _db.Issues.AddAsync(Issue);   // add this issue
+
+            await _db.SaveChangesAsync();   // save all changes to the database
 
             if (Issuer.IsAdmin) return RedirectToPage("AdminDashboard", Issuer.eMail);
             else return RedirectToPage("ElevatedUserDashboard", Issuer.eMail);

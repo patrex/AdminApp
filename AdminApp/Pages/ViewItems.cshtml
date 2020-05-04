@@ -40,7 +40,7 @@
                     {
                         <tr>
                             <td>
-                                <a asp-route-id="@item.Id">@Html.DisplayFor(m => item.ItemName)</a>
+                                @Html.DisplayFor(m => item.ItemName)
                             </td>
 
                             <td>
@@ -48,10 +48,7 @@
                             </td>
 
                             <td>
-                                <div class="input-group">
-                                    @*<input type="number" class="form-control w-25" name="incby" />*@
-                                    <button asp-page-handler="increment" class="text-white btn btn-success" asp-route-id="@item.Id">+</button>
-                                </div>
+                                <a asp-page="UpdateItem" class="btn text-white btn-success" asp-route-itemid="@item.Id" asp-route-id="@Model.CurrentUser.eMail">Add</a>
                             </td>
                         </tr>
                     }
