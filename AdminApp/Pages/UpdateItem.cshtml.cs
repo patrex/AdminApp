@@ -31,10 +31,10 @@ namespace AdminApp.Pages
                 Item = await _db.StoreItems.FindAsync(itemid);
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(int itemid, string id)
         {
-            var someItem = await _db.StoreItems.FindAsync(Item.Id);
-            var someUser = await _db.Users.FindAsync(CurrentUser.eMail);
+            var someItem = await _db.StoreItems.FindAsync(itemid);
+            var someUser = await _db.Users.FindAsync(id);
 
             if(someItem != null)
             {
@@ -42,7 +42,7 @@ namespace AdminApp.Pages
                 someItem.DateAdded = DateTime.Now;
                 someItem.AddedBy = someUser.Fullname;
 
-                var i = await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
 
                 return RedirectToPage("AdminDashboard", someUser.eMail);
             }
