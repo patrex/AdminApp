@@ -30,5 +30,28 @@ namespace AdminApp.Pages
             Items = await _db.StoreItems.ToListAsync();
             CurrentUser = await _db.Users.FindAsync(id);    // 
         }
+
+        public async Task<IActionResult> OnPostDelete(int? itemid, string id)
+        {
+            CurrentUser = await _db.Users.FindAsync(id);
+
+            if(itemid > 0)
+            {
+                Item = await _db.StoreItems.FindAsync(itemid);
+                CurrentUser = await _db.Users.FindAsync(id);
+
+                var deleted = _db.StoreItems.Remove(Item);
+
+                await _db.SaveChangesAsync();
+
+                return RedirectToPage();
+            }
+            else
+            {
+                return Page();
+            }
+
+            
+        }
     }
 }

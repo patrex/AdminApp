@@ -6,6 +6,7 @@
 
    
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <br />
 
@@ -15,7 +16,7 @@
     </div>
 
     <div class="col-12 border p-3 mt-3">
-        <form method="post">
+        <form method="post" id="reqItem">
             <div class="form-group">
                 <select required class="form-control" asp-for="UserRequest.Item" asp-items="@(new SelectList(Model.Items, "Id", "ItemName"))">
                     <option value="" disabled selected>Select an Item</option>

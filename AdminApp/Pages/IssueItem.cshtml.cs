@@ -38,6 +38,7 @@ namespace AdminApp.Pages
 
         public async Task<IActionResult> OnPost(int reqid, string email)
         {
+            // do all these in a try-catch block
             SomeRequest = await _db.Requests.FindAsync(reqid);  // find the request
             Issuer = await _db.Users.FindAsync(email);  // find the Issuer
             SomeItem = await _db.StoreItems.FindAsync(SomeRequest.ItemId);  // find the item from the list

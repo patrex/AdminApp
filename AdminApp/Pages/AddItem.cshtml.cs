@@ -23,14 +23,16 @@ namespace AdminApp.Pages
         [BindProperty]
         public APINUser CurrentUser { get; set; }
 
-        public async Task OnGet(string id)
+        public async Task OnGet(string id, string handler)
         {
+            if (handler != null) id = handler;
             CurrentUser = await _db.Users.FindAsync(id);
         }
 
         public async Task<IActionResult> OnPost(string id)
         {
             CurrentUser = await _db.Users.FindAsync(id);
+
             Item.QtyLeft = Item.QuantityAdded;
             Item.DateAdded = DateTime.Now;
             Item.AddedBy = CurrentUser.Fullname;

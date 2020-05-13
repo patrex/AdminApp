@@ -19,7 +19,7 @@ namespace AdminApp.Models
         public string AddedBy { get; set; }
 
         [Required]
-        [Range(1, 1000, ErrorMessage = "You have to enter how many of this item to add")]
+        [Range(1, 1000, ErrorMessage = "Invalid amount. Must be 1 or more")]
         public int QuantityAdded { get; set; }
 
         public DateTime DateAdded { get; set; }

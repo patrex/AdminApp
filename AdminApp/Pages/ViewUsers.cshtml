@@ -32,7 +32,7 @@
                         </th>
 
                         <th>
-                            <label asp-for="Users.FirstOrDefault().IsAdmin" class="border-right">User Is Admin?</label>
+                            <label asp-for="Users.FirstOrDefault().IsAdmin" class="border-right">User type</label>
                         </th>
 
                         <th>
@@ -58,15 +58,15 @@
                             <td>
                                 @if (someUser.IsAdmin)
                                 {
-                                    <span>Yes</span>
+                                    <span>Admin</span>
                                 }
                                 else if (someUser.IsElevatedUser)
                                 {
-                                    <span>User has elevated privileges</span>
+                                    <span>Store Manager</span>
                                 }
                                 else
                                 {
-                                    <span>No</span>
+                                    <span>User</span>
                                 }
                             </td>
 

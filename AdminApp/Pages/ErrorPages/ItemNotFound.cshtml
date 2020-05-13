@@ -1,0 +1,29 @@
+﻿@page
+@model AdminApp.Pages.ErrorPages.ItemNotFoundModel
+@{
+    ViewData["Title"] = "ItemNotFound";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="container row">
+    <div class="col-9">
+        <h2 class="text-danger">Error</h2>
+    </div>
+
+    <p class="text-info">
+        Do not be alarmed.
+    </p>
+
+    <p>
+        Something went wrong and the item that you requested cannot be fetched right now.
+    </p>
+
+    <h3>Here is what you can do right now</h3>
+    @if (Model.CurrentUser.IsAdmin) { <a asp-page="AdminDashboard" asp-route-handler="@Model.CurrentUser.eMail">Go back to your dashboard</a> }
+    else if(Model.CurrentUser.IsElevatedUser) { <a asp-page="UserDashboard" asp-route-handler="@Model.CurrentUser.eMail">Go back to your dashboard</a> }
+
+    <a>Go to the home page</a>
+</div>
+
